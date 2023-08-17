@@ -79,7 +79,6 @@ app.post("/", async(req, res)=>{
     res.redirect("/");
   }else{
     const userName=await List.findOne({ name:listName }).exec();
-    console.log(item);
     userName.items.push(item);
     userName.save();
     res.redirect("/"+listName);
