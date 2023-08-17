@@ -1,5 +1,6 @@
 //jshint esversion:6
 
+import 'dotenv/config'; 
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
@@ -21,7 +22,7 @@ app.use(express.static("public"));
 // mongoose.connect("mongodb://127.0.0.1/todolistDB")
 // .then(() => console.log('Connected!'));
 
-mongoose.connect("mongodb+srv://admin-bineet:PrRDrvMMh@cluster0.pargbz8.mongodb.net/todolistDB")
+mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log("connected to online database"));
 
 
@@ -112,7 +113,7 @@ app.get("/:customListName",async(req,res)=>{
     list.save();
     res.redirect("/"+customListName);
   }else{
-    res.render("list", {listTitle: userName.name, newListItems: userName.items});
+    res.render("list.ejs", {listTitle: userName.name, newListItems: userName.items});
   }
 });
 
